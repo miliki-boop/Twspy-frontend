@@ -1,10 +1,6 @@
 import React from 'react';
 import './index.css';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b58dcf997b052ba32cacf1971d78b5f2a18605a
 import Sign_content from './Sign_content';
 
 const { Header, Content, Footer } = Layout;

@@ -23,6 +23,7 @@ function App() {
             <Route path="/tweet" element={<Tweet />}>
               <Route path=":id" element={<Tweet />}></Route>
             </Route>
+            
 
 
       </Routes>
