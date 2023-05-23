@@ -18,39 +18,50 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
   }
   ```
 */
-export default function Sign_content() {
-    return (
-      <div>
-        <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
-          Price
-        </label>
-        <div className="relative mt-2 rounded-md shadow-sm">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <span className="text-gray-500 sm:text-sm">$</span>
-          </div>
-          <input
-            type="text"
-            name="price"
-            id="price"
-            className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="0.00"
+export default function Example() {
+  return (
+    <>
+      {/*
+        This example requires updating your template:
+
+        ```
+        <html class="h-full bg-white">
+        <body class="h-full">
+        ```
+      */}
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            className="mx-auto h-10 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
           />
-          <div className="absolute inset-y-0 right-0 flex items-center">
-            <label htmlFor="currency" className="sr-only">
-              Currency
-            </label>
-            <select
-              id="currency"
-              name="currency"
-              className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-            >
-              <option>USD</option>
-              <option>CAD</option>
-              <option>EUR</option>
-            </select>
-          </div>
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Search for Your Username
+          </h2>
+        </div>
+
+        <div className="w-3/5 mx-auto">
+
+          <form>
+            <div class="relative mt-10">
+              <input
+                type="text"
+                class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 w-full"
+                placeholder="Input the username"
+              />
+              <button class="absolute right-0 top-0 bottom-0 px-4 py-2 bg-gray-200 text-gray-600 rounded-r">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg>
+              </button>
+            </div>
+          </form>  
         </div>
       </div>
-    )
-  }
+    </>
+  )
+}
+
   

@@ -2,7 +2,6 @@ import React from 'react';
 import './index.css';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
-import { Link } from 'bisheng/router';
 import Home_content from './Home_content';
 
 const { Header, Content, Footer } = Layout;
