@@ -3,7 +3,6 @@ import React  from 'react';
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'bisheng/router';
 
 const navigation = {
   categories: [
@@ -12,37 +11,33 @@ const navigation = {
       name: 'Identity',
       featured: [
         {
-          name: 'New Arrivals',
+          name: 'Icon',
           href: '#',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+          imageAlt: 'Show icon',
         },
         {
-          name: 'Basic Tees',
+          name: 'Face',
           href: '#',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+          imageAlt: 'Show Face',
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
+          id: 'key',
+          name: 'Key',
           items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Dresses', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Denim', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
+            { name: '用户名', href: '#' },
+            { name: '姓名', href: '#' },
+            { name: '性别', href: '#' },
+            { name: '工作', href: '#' },
+            { name: '家', href: '#' },
           ],
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
+          id: 'value',
+          name: 'Value',
           items: [
             { name: 'Watches', href: '#' },
             { name: 'Wallets', href: '#' },
@@ -50,17 +45,6 @@ const navigation = {
             { name: 'Sunglasses', href: '#' },
             { name: 'Hats', href: '#' },
             { name: 'Belts', href: '#' },
-          ],
-        },
-        {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Significant Other', href: '#' },
           ],
         },
       ],
@@ -70,36 +54,31 @@ const navigation = {
       name: 'Sociality',
       featured: [
         {
-          name: 'New Arrivals',
+          name: 'People with connections',
           href: '#',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+          imageAlt: 'People with connections',
         },
         {
-          name: 'Artwork Tees',
+          name: 'People with connections',
           href: '#',
           imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
           imageAlt:
-            'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+            'People with connections',
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
+          id: 'key',
+          name: 'Key',
           items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
+            { name: '电话', href: '#' },
+            { name: '邮箱', href: '#' },
           ],
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
+          id: 'value',
+          name: 'Value',
           items: [
             { name: 'Watches', href: '#' },
             { name: 'Wallets', href: '#' },
@@ -107,16 +86,6 @@ const navigation = {
             { name: 'Sunglasses', href: '#' },
             { name: 'Hats', href: '#' },
             { name: 'Belts', href: '#' },
-          ],
-        },
-        {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
           ],
         },
       ],
@@ -206,9 +175,9 @@ export default function Home_content() {
                                 <span className="absolute inset-0 z-10" aria-hidden="true" />
                                 {item.name}
                               </a>
-                              <p aria-hidden="true" className="mt-1">
+                              {/* <p aria-hidden="true" className="mt-1">
                                 Shop now
-                              </p>
+                              </p> */}
                             </div>
                           ))}
                         </div>
@@ -345,13 +314,13 @@ export default function Home_content() {
                                             <span className="absolute inset-0 z-10" aria-hidden="true" />
                                             {item.name}
                                           </a>
-                                          <p aria-hidden="true" className="mt-1">
+                                          {/* <p aria-hidden="true" className="mt-1">
                                             Shop now
-                                          </p>
+                                          </p> */}
                                         </div>
                                       ))}
                                     </div>
-                                    <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                    <div className="row-start-1 grid grid-cols-2 gap-x-8 gap-y-10 text-sm">
                                       {category.sections.map((section) => (
                                         <div key={section.name}>
                                           <p id={`${section.name}-heading`} className="font-medium text-gray-900">

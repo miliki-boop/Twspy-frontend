@@ -4,6 +4,7 @@ import React from "react";
 //import 'antd/dist/reset.css';
 import Home from './Home.tsx';
 import Sign from "./Sign.tsx";
+import Tweet from "./Tweet.tsx"
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
 
@@ -15,8 +16,11 @@ function App() {
 
       <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/index" element={<Home />}></Route>
-          <Route path="/sign" element={<Sign />}></Route>
+            <Route path="index" element={<Home />}></Route>
+            <Route path="sign" element={<Sign />}></Route>
+            <Route path="tweet" element={<Tweet />}></Route>
+
+
       </Routes>
       
 
