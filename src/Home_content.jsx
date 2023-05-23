@@ -101,9 +101,22 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Home_content() {
-  const [open, setOpen] = useState(false)
+function updateNavigation(id) {
 
+  navigation.categories[0].sections[0].items[0].href='/tweet/' + id
+  navigation.categories[0].sections[1].items[0].name=id
+  navigation.categories[0].sections[1].items[0].href='/tweet/' + id
+
+
+}
+
+
+export default function Home_content(props) {
+  const [open, setOpen] = useState(false)
+  const { id } = props;
+  const idString = `${id}`;
+  updateNavigation(idString)
+  
   return (
     <div className="bg-white">
       {/* Mobile menu */}

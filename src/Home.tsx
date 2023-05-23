@@ -1,12 +1,14 @@
 import React from 'react';
 import './index.css';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-
+import { useParams } from 'react-router-dom';
 import Home_content from './Home_content';
 
 const { Header, Content, Footer } = Layout;
 
 const Home: React.FC = () => {
+
+  const { id } = useParams<{ id: string }>();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -24,7 +26,7 @@ const Home: React.FC = () => {
         </div>
       </Header>
       <Content style={{ flex: 1, padding: '0 50px' }}>
-        <Home_content></Home_content>
+        <Home_content id={id}></Home_content>
       </Content>
       <Footer style={{ textAlign: 'center' }}>zhangheng shi sb</Footer>
     </Layout>

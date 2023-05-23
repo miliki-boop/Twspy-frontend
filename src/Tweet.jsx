@@ -3,12 +3,13 @@ import './index.css';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
 import Tweet_content from './Tweet_content';
-
+import { useParams } from 'react-router-dom';
 const { Header, Content, Footer } = Layout;
 
 
-const Tweet: React.FC = () => {
-    const tweetContentRef = useRef<HTMLDivElement | null>(null);
+const Tweet = () => {
+    const { id } = useParams();
+    const tweetContentRef = useRef(null);
     const [contentHeight, setContentHeight] = useState(0);
   
     useEffect(() => {
@@ -36,7 +37,7 @@ const Tweet: React.FC = () => {
         </div>
       </Header>
       <Content style={{ padding: '0 50px' ,height: contentHeight}}>
-        <Tweet_content ref={tweetContentRef}></Tweet_content>
+        <Tweet_content id={id} ref={tweetContentRef}></Tweet_content>
       </Content>
       <Footer style={{ textAlign: 'center' }}>zhangheng shi sb</Footer>
     </Layout>
