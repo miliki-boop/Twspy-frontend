@@ -1,7 +1,10 @@
 import React from 'react';
 import './index.css';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6b58dcf997b052ba32cacf1971d78b5f2a18605a
 import Sign_content from './Sign_content';
 
 const { Header, Content, Footer } = Layout;
@@ -26,7 +29,7 @@ const Sign: React.FC = () => {
       <Content style={{ flex: 1, padding: '0 50px' }}>
         <Sign_content></Sign_content>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+      <Footer style={{ textAlign: 'center' }}>zhangheng shi shabi</Footer>
     </Layout>
   );
 };
