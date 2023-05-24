@@ -12,10 +12,10 @@ const Sign: React.FC = () => {
   return (
     <Layout className="layout" style={{ height: '100vh' }}>
       <Header style={{ display: 'flex'}} className="css-1m6c83y">
-        <div className="css-15rg2km" style={{flexFlow: "nowrap", height: "64px"}}>
-          <div className='ant-col-md-6'>
+      <div className="rg2km" style={{flexFlow: "nowrap", height: "64px"}}>
+          <div className='md-6'>
             <h1>
-              <a className='css-10if06k' href='/index'>
+              <a className='if06k' href='/index'>
                 <span className="css-zsb1p1">Twspy</span>
               </a>
             </h1>

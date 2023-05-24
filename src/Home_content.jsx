@@ -5,18 +5,19 @@ import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 
-function sendDataToPHPApp(url, data) {
+function sendDataToPHPApp(url, id,updateNavigation) {
   fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({user: data}),
+    body: JSON.stringify({user: id}),
   })
     .then(response => response.json())
     .then(data => {
       // 处理从PHP应用返回的数据
       console.log(data);
+      updateNavigation(data.message,id);
     })
     .catch(error => {
       // 处理请求错误
@@ -50,8 +51,9 @@ const navigation = {
           items: [
             { name: '用户名', href: '#' },
             { name: '姓名', href: '#' },
+            { name: '个人所在地', href: '#' },
             { name: '性别', href: '#' },
-            { name: '工作', href: '#' },
+            { name: '行业', href: '#' },
             { name: '家', href: '#' },
           ],
         },
@@ -59,12 +61,12 @@ const navigation = {
           id: 'value',
           name: 'Value',
           items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
+            { name: 'Not Found', href: '#' },
+            { name: 'Not Found', href: '#' },
+            { name: 'Not Found', href: '#' },
+            { name: 'Not Found', href: '#' },
+            { name: 'Not Found', href: '#' },
+            { name: 'Not Found', href: '#' },
           ],
         },
       ],
@@ -100,12 +102,8 @@ const navigation = {
           id: 'value',
           name: 'Value',
           items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
+            { name: 'Not Found', href: '#' },
+            { name: 'Not Found', href: '#' },
           ],
         },
       ],
@@ -121,12 +119,59 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function updateNavigation(id) {
+function updateNavigation(message,id) {
+  navigation.categories[0].sections[1].items[0].name=id//设置id
+  // navigation.categories[0].sections[0].items[0].href='/tweet/' + id
+  // navigation.categories[0].sections[1].items[0].name=id
+  // navigation.categories[0].sections[1].items[0].href='/tweet/' + id
+  message.forEach(item => {
+    // 处理每个元素
+    switch(item.privacy_class){
+      case '姓名':{
+        navigation.categories[0].sections[0].items[1].href='/tweet/' + id + '/姓名'
+        navigation.categories[0].sections[1].items[1].name=item.privacy_value
+        navigation.categories[0].sections[1].items[1].href='/tweet/' + id + '/姓名'
+      }
+      break;
+      case '个人所在地':{
+        navigation.categories[0].sections[0].items[2].href='/tweet/' + id + '/个人所在地'
+        navigation.categories[0].sections[1].items[2].name=item.privacy_value
+        navigation.categories[0].sections[1].items[2].href='/tweet/' + id + '/个人所在地'
+      }
+      break;
+      case '行业':{
+        navigation.categories[0].sections[0].items[4].href='/tweet/' + id + '/行业'
+        navigation.categories[0].sections[1].items[4].name=item.privacy_value
+        navigation.categories[0].sections[1].items[4].href='/tweet/' + id + '/行业'
+      }
+      break;
+      case '性别':{
+        navigation.categories[0].sections[0].items[3].href='/tweet/' + id + '/性别'
+        navigation.categories[0].sections[1].items[3].name=item.privacy_value
+        navigation.categories[0].sections[1].items[3].href='/tweet/' + id + '/性别'
+      }
+      break;
+      case '家':{
+        navigation.categories[0].sections[0].items[5].href='/tweet/' + id + '/家'
+        navigation.categories[0].sections[1].items[5].name=item.privacy_value
+        navigation.categories[0].sections[1].items[5].href='/tweet/' + id + '/家'
+      }
+      break;
+      case '电话':{
+        navigation.categories[1].sections[0].items[0].href='/tweet/' + id + '/电话'
+        navigation.categories[1].sections[1].items[0].name=item.privacy_value
+        navigation.categories[1].sections[1].items[0].href='/tweet/' + id + '/电话'
+      }
+      break;
+      case '邮箱':{
+        navigation.categories[1].sections[0].items[1].href='/tweet/' + id + '/邮箱'
+        navigation.categories[1].sections[1].items[1].name=item.privacy_value
+        navigation.categories[1].sections[1].items[1].href='/tweet/' + id + '/邮箱'
+      }
+      break;
+    }
 
-  navigation.categories[0].sections[0].items[0].href='/tweet/' + id
-  navigation.categories[0].sections[1].items[0].name=id
-  navigation.categories[0].sections[1].items[0].href='/tweet/' + id
-
+  });
 
 }
 
@@ -135,9 +180,9 @@ export default function Home_content(props) {
   const [open, setOpen] = useState(false)
   const { id } = props;
   const idString = `${id}`;
-  updateNavigation(idString)
+  
 
-  sendDataToPHPApp('http://localhost:9000/select.php',idString)
+  sendDataToPHPApp('http://localhost:9000/select.php',idString,updateNavigation)
 
   return (
     <div className="bg-white">
@@ -405,7 +450,7 @@ export default function Home_content(props) {
                     Sign in
                   </a>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <a href="/index" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Sign out
                   </a>
                 </div>
