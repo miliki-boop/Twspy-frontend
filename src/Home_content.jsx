@@ -4,6 +4,26 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
+
+function sendDataToPHPApp(url, data) {
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({user: data}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      // 处理从PHP应用返回的数据
+      console.log(data);
+    })
+    .catch(error => {
+      // 处理请求错误
+      console.error('Error:', error);
+    });
+}
+
 const navigation = {
   categories: [
     {
@@ -116,7 +136,9 @@ export default function Home_content(props) {
   const { id } = props;
   const idString = `${id}`;
   updateNavigation(idString)
-  
+
+  sendDataToPHPApp('http://localhost:9000/select.php',idString)
+
   return (
     <div className="bg-white">
       {/* Mobile menu */}
