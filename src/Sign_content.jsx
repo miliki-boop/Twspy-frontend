@@ -11,13 +11,13 @@ const Sign_content = () => {
     setInputValue(event.target.value);
   };
 
-  const handleNavigate = () => {
-    navigate(`../index/${inputValue}`);
-  };
+  const [isVisible, setIsVisible] = useState(false);
+  
+  const handleClick = () => {
+      setIsVisible(true);
+    };
 
   const sendDataToPHPApp=(url, id)=>{
-
-    console.log('123');
     fetch(url, {
       method: 'POST',
       headers: {
@@ -33,7 +33,7 @@ const Sign_content = () => {
           navigate(`../index/${id}`);
           }
         else{
-          
+          handleClick();
         }
       })
       .catch(error => {
@@ -77,7 +77,10 @@ const Sign_content = () => {
               </svg>
               </button>
             </div>
-          </form>  
+          </form> 
+          <div>
+            {isVisible && <h2 className='text-red-500 text-lg px-4 py-2'>Now we don't support searching for the unkonwn user</h2>}
+          </div> 
         </div>
       </div>
     </>
