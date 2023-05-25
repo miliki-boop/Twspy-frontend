@@ -10,7 +10,7 @@ const Tweet_content = forwardRef(({ id, privacy, onHeightChange }, ref) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:9000/select(1).php', {
+        const response = await fetch('/select.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const Tweet_content = forwardRef(({ id, privacy, onHeightChange }, ref) => {
     <div className="bg-white py-16 sm:py-16" ref={ref}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the Twitter</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the Weibo</h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
             Learn which tweets give away information.
           </p>

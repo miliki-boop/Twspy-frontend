@@ -70,7 +70,7 @@ const Sign_content = () => {
                 value={inputValue}
                 onChange={handleInputChange}
               />
-              <button className="absolute right-0 top-0 bottom-0 px-4 py-2 bg-gray-200 text-gray-600 rounded-r" onClick={(event)=>{event.preventDefault(); sendDataToPHPApp('http://localhost:9000/select(1).php',inputValue);}}>
+              <button className="absolute right-0 top-0 bottom-0 px-4 py-2 bg-gray-200 text-gray-600 rounded-r" onClick={(event)=>{event.preventDefault(); sendDataToPHPApp('/select.php',inputValue);}}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                 <circle cx="11" cy="11" r="8" />
                 <path d="M21 21l-4.35-4.35" />

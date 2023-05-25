@@ -3,6 +3,7 @@ import React  from 'react';
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { message } from 'antd';
 
 
 const navigation = {
@@ -16,7 +17,7 @@ const navigation = {
           href: '#',
           imageSrc: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
           imageAlt: 'Show icon',
-          text: ['英雄联盟官方主持人','商务合作vx: ywy20086871','天秤座 上海 普陀区','中国传媒大学','2010-12-31 加入微博','信用极好']
+          text: []
         },
         {
           name: 'Face',
@@ -61,7 +62,7 @@ const navigation = {
           href: '#',
           imageSrc: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
           imageAlt: 'People with connections',
-          text: ['英雄联盟官方主持人','商务合作vx: ywy20086871','天秤座 上海 普陀区','中国传媒大学','2010-12-31 加入微博','信用极好']
+          text: []
         },
         {
           name: 'People with connections',
@@ -130,6 +131,30 @@ export default function Home_content(props) {
         console.error('Error:', error);
       });
   }
+
+  const sendDataToPHPApp2 = async (url, id,updateNavigation) => {
+    await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({uid: id,action:'getUser'}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // 处理从PHP应用返回的数据
+        console.log(data);
+        if(data.success)
+        {
+          updateNavigation(data.message,id);
+        }
+          
+      })
+      .catch(error => {
+        // 处理请求错误
+        console.error('Error:', error);
+      });
+  }
   useEffect(() => {
     const { id } = props;
     const idString = `${id}`;
@@ -179,11 +204,24 @@ export default function Home_content(props) {
         break;
       }
   
-    });
+      });
   
-    };
+      };
+    
+    const updateicon = (message,id) =>{
+      navigation.categories[0].featured[0].name = message[0].screen_name
+      navigation.categories[1].featured[0].name = message[0].screen_name
+      navigation.categories[0].featured[0].imageSrc = '/image/avatar/'+id+'.jpg'
+      navigation.categories[1].featured[0].imageSrc = '/image/avatar/'+id+'.jpg'
 
-    sendDataToPHPApp('http://localhost:9000/select(1).php', idString, updateNavigation);
+
+      navigation.categories[0].featured[0].text.push(message[0].verified_reason)
+      navigation.categories[0].featured[0].text.push(message[0].description)
+      navigation.categories[1].featured[0].text.push(message[0].verified_reason)
+      navigation.categories[1].featured[0].text.push(message[0].description)
+    }
+    sendDataToPHPApp('/select.php', idString, updateNavigation);
+    sendDataToPHPApp2('/select.php',idString, updateicon);
   }, []); // 空数组作为依赖项，表示只在组件挂载时执行一次
 
   const [open, setOpen] = useState(true)
@@ -320,7 +358,7 @@ export default function Home_content(props) {
 
       <header className="relative bg-white">
         <p className="flex h-20 items-center justify-center bg-indigo-600 px-4 text-xl font-medium text-white sm:px-6 lg:px-8">
-          Get the private information leaked on Twitter
+          Get the private information leaked on Weibo
         </p>
 
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
