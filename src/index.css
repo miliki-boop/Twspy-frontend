@@ -15,6 +15,12 @@ code {
 .App {
   padding: 20px;
 }
+.break-words {
+  white-space: pre-line;
+  line-height: 2;
+  font-family: Arial;
+  color: #837777;
+}
 
 .css-1m6c83y {
   position: relative;

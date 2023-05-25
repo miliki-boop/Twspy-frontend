@@ -1,29 +1,9 @@
 import './a.css';
 import React  from 'react';
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-
-function sendDataToPHPApp(url, id,updateNavigation) {
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({user: id}),
-  })
-    .then(response => response.json())
-    .then(data => {
-      // 处理从PHP应用返回的数据
-      console.log(data);
-      updateNavigation(data.message,id);
-    })
-    .catch(error => {
-      // 处理请求错误
-      console.error('Error:', error);
-    });
-}
 
 const navigation = {
   categories: [
@@ -32,10 +12,11 @@ const navigation = {
       name: 'Identity',
       featured: [
         {
-          name: 'Icon',
+          name: '余霜YSCandice',
           href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+          imageSrc: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
           imageAlt: 'Show icon',
+          text: ['英雄联盟官方主持人','商务合作vx: ywy20086871','天秤座 上海 普陀区','中国传媒大学','2010-12-31 加入微博','信用极好']
         },
         {
           name: 'Face',
@@ -76,10 +57,11 @@ const navigation = {
       name: 'Sociality',
       featured: [
         {
-          name: 'People with connections',
+          name: '余霜YSCandice',
           href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+          imageSrc: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
           imageAlt: 'People with connections',
+          text: ['英雄联盟官方主持人','商务合作vx: ywy20086871','天秤座 上海 普陀区','中国传媒大学','2010-12-31 加入微博','信用极好']
         },
         {
           name: 'People with connections',
@@ -110,8 +92,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: '', href: '#' },
-    { name: '', href: '#' },
+    { name: ' ', href: '#' },
+    { name: ' ', href: '#' },
   ],
 }
 
@@ -119,71 +101,98 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function updateNavigation(message,id) {
-  navigation.categories[0].sections[1].items[0].name=id//设置id
-  // navigation.categories[0].sections[0].items[0].href='/tweet/' + id
-  // navigation.categories[0].sections[1].items[0].name=id
-  // navigation.categories[0].sections[1].items[0].href='/tweet/' + id
-  message.forEach(item => {
-    // 处理每个元素
-    switch(item.privacy_class){
-      case '姓名':{
-        navigation.categories[0].sections[0].items[1].href='/tweet/' + id + '/姓名'
-        navigation.categories[0].sections[1].items[1].name=item.privacy_value
-        navigation.categories[0].sections[1].items[1].href='/tweet/' + id + '/姓名'
-      }
-      break;
-      case '个人所在地':{
-        navigation.categories[0].sections[0].items[2].href='/tweet/' + id + '/个人所在地'
-        navigation.categories[0].sections[1].items[2].name=item.privacy_value
-        navigation.categories[0].sections[1].items[2].href='/tweet/' + id + '/个人所在地'
-      }
-      break;
-      case '行业':{
-        navigation.categories[0].sections[0].items[4].href='/tweet/' + id + '/行业'
-        navigation.categories[0].sections[1].items[4].name=item.privacy_value
-        navigation.categories[0].sections[1].items[4].href='/tweet/' + id + '/行业'
-      }
-      break;
-      case '性别':{
-        navigation.categories[0].sections[0].items[3].href='/tweet/' + id + '/性别'
-        navigation.categories[0].sections[1].items[3].name=item.privacy_value
-        navigation.categories[0].sections[1].items[3].href='/tweet/' + id + '/性别'
-      }
-      break;
-      case '家':{
-        navigation.categories[0].sections[0].items[5].href='/tweet/' + id + '/家'
-        navigation.categories[0].sections[1].items[5].name=item.privacy_value
-        navigation.categories[0].sections[1].items[5].href='/tweet/' + id + '/家'
-      }
-      break;
-      case '电话':{
-        navigation.categories[1].sections[0].items[0].href='/tweet/' + id + '/电话'
-        navigation.categories[1].sections[1].items[0].name=item.privacy_value
-        navigation.categories[1].sections[1].items[0].href='/tweet/' + id + '/电话'
-      }
-      break;
-      case '邮箱':{
-        navigation.categories[1].sections[0].items[1].href='/tweet/' + id + '/邮箱'
-        navigation.categories[1].sections[1].items[1].name=item.privacy_value
-        navigation.categories[1].sections[1].items[1].href='/tweet/' + id + '/邮箱'
-      }
-      break;
-    }
-
-  });
-
-}
 
 
 export default function Home_content(props) {
-  const [open, setOpen] = useState(false)
-  const { id } = props;
-  const idString = `${id}`;
+  const [buttonFlag, setButtonFlag] = useState(false);
+
+  const sendDataToPHPApp = async (url, id,updateNavigation) => {
+    await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user: id}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // 处理从PHP应用返回的数据
+        console.log(data);
+        if(data.success)
+        {
+          updateNavigation(data.message,id);
+          setButtonFlag(true);
+        }
+          
+      })
+      .catch(error => {
+        // 处理请求错误
+        console.error('Error:', error);
+      });
+  }
+  useEffect(() => {
+    const { id } = props;
+    const idString = `${id}`;
+    const updateNavigation = (message, id) => {
+      navigation.categories[0].sections[1].items[0].name=id//设置id
+    // navigation.categories[0].sections[0].items[0].href='/tweet/' + id
+    // navigation.categories[0].sections[1].items[0].name=id
+    // navigation.categories[0].sections[1].items[0].href='/tweet/' + id
+    message.forEach(item => {
+      // 处理每个元素
+      switch(item.privacy_class){
+        case '姓名':{
+          navigation.categories[0].sections[0].items[1].href='/tweet/' + id + '/姓名'
+          navigation.categories[0].sections[1].items[1].name=item.privacy_value
+          navigation.categories[0].sections[1].items[1].href='/tweet/' + id + '/姓名'
+        }
+        break;
+        case '个人所在地':{
+          navigation.categories[0].sections[0].items[2].href='/tweet/' + id + '/个人所在地'
+          navigation.categories[0].sections[1].items[2].name=item.privacy_value
+          navigation.categories[0].sections[1].items[2].href='/tweet/' + id + '/个人所在地'
+        }
+        break;
+        case '行业':{
+          navigation.categories[0].sections[0].items[4].href='/tweet/' + id + '/行业'
+          navigation.categories[0].sections[1].items[4].name=item.privacy_value
+          navigation.categories[0].sections[1].items[4].href='/tweet/' + id + '/行业'
+        }
+        break;
+        case '性别':{
+          navigation.categories[0].sections[0].items[3].href='/tweet/' + id + '/性别'
+          navigation.categories[0].sections[1].items[3].name=item.privacy_value
+          navigation.categories[0].sections[1].items[3].href='/tweet/' + id + '/性别'
+        }
+        break;
+        case '家':{
+          navigation.categories[0].sections[0].items[5].href='/tweet/' + id + '/家'
+          navigation.categories[0].sections[1].items[5].name=item.privacy_value
+          navigation.categories[0].sections[1].items[5].href='/tweet/' + id + '/家'
+        }
+        break;
+        case '电话':{
+          navigation.categories[1].sections[0].items[0].href='/tweet/' + id + '/电话'
+          navigation.categories[1].sections[1].items[0].name=item.privacy_value
+          navigation.categories[1].sections[1].items[0].href='/tweet/' + id + '/电话'
+        }
+        break;
+        case '邮箱':{
+          navigation.categories[1].sections[0].items[1].href='/tweet/' + id + '/邮箱'
+          navigation.categories[1].sections[1].items[1].name=item.privacy_value
+          navigation.categories[1].sections[1].items[1].href='/tweet/' + id + '/邮箱'
+        }
+        break;
+      }
   
+    });
+  
+    };
 
-  sendDataToPHPApp('http://localhost:9000/select.php',idString,updateNavigation)
+    sendDataToPHPApp('http://localhost:9000/select.php', idString, updateNavigation);
+  }, []); // 空数组作为依赖项，表示只在组件挂载时执行一次
 
+  const [open, setOpen] = useState(true)
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -317,7 +326,7 @@ export default function Home_content(props) {
 
       <header className="relative bg-white">
         <p className="flex h-20 items-center justify-center bg-indigo-600 px-4 text-xl font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
+          Get the private information leaked on Twitter
         </p>
 
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -380,27 +389,56 @@ export default function Home_content(props) {
                               <div className="relative bg-white">
                                 <div className="mx-auto max-w-7xl px-8">
                                   <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                                    <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                      {category.featured.map((item) => (
-                                        <div key={item.name} className="group relative text-base sm:text-sm">
-                                          <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                            <img
-                                              src={item.imageSrc}
-                                              alt={item.imageAlt}
-                                              className="object-cover object-center"
-                                            />
+                                    <div className="row-start-1 grid grid-cols-2 gap-x-8">
+                                      {/* {category.featured.map((item) => ( */}
+                                        <div key={category.featured[0].name} className="group relative text-base sm:text-sm">
+                                        <div className="relative mt-8 flex items-center gap-x-4"> 
+                                          <div className="flex items-center">
+                                            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                              <img
+                                                src={category.featured[0].imageSrc}
+                                                alt={category.featured[0].imageAlt}
+                                                className="h-10 w-10 rounded-full bg-gray-50"
+                                              />
+                                            </div>
+                                            <div className="text-sm leading-6 ml-2">
+                                              <p className="text-gray-600">{category.featured[0].name}</p>
+                                            </div>
                                           </div>
-                                          <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                            <span className="absolute inset-0 z-10" aria-hidden="true" />
-                                            {item.name}
+                                          <div className="ml-4"></div> {/* 添加间距 */}
+                                        </div>
+                                          <a href={category.featured[0].href} className="mt-6 block font-medium text-gray-900 ">
+                                          
+                                            {category.featured[0].text.map((item)=>(
+                                              <span className="break-words block list-disc ml-4">
+                                                {item}
+                                                <br/>
+                                              </span>
+                                            ))}
+                                          
                                           </a>
                                           {/* <p aria-hidden="true" className="mt-1">
                                             Shop now
                                           </p> */}
                                         </div>
-                                      ))}
+                                        <div key={category.featured[1].name} className="group relative text-base sm:text-sm">
+                                          <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                            <img
+                                              src={category.featured[1].imageSrc}
+                                              alt={category.featured[1].imageAlt}
+                                              className="object-cover object-center"
+                                            />
+                                          </div>
+                                          <a href={category.featured[1].href} className="mt-6 block font-medium text-gray-900">
+                                            <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                            {category.featured[1].name}
+                                          </a>
+                                          {/* <p aria-hidden="true" className="mt-1">
+                                            Shop now
+                                          </p> */}
+                                        </div>                                      
                                     </div>
-                                    <div className="row-start-1 grid grid-cols-2 gap-x-8 gap-y-10 text-sm">
+                                    <div className=" col-start-2 grid grid-cols-2 gap-x-8 gap-y-10 text-sm">
                                       {category.sections.map((section) => (
                                         <div key={section.name}>
                                           <p id={`${section.name}-heading`} className="font-medium text-gray-900">
