@@ -112,7 +112,7 @@ export default function Home_content(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({user: id}),
+      body: JSON.stringify({uid: id,action:'getPrivacy'}),
     })
       .then(response => response.json())
       .then(data => {
@@ -142,45 +142,39 @@ export default function Home_content(props) {
       // 处理每个元素
       switch(item.privacy_class){
         case '姓名':{
-          navigation.categories[0].sections[0].items[1].href='/tweet/' + id + '/姓名'
+          navigation.categories[0].sections[0].items[1].href='/tweet/' + id + '/' + item.idprivacy
           navigation.categories[0].sections[1].items[1].name=item.privacy_value
-          navigation.categories[0].sections[1].items[1].href='/tweet/' + id + '/姓名'
+          navigation.categories[0].sections[1].items[1].href='/tweet/' + id + '/' + item.idprivacy
         }
         break;
         case '个人所在地':{
-          navigation.categories[0].sections[0].items[2].href='/tweet/' + id + '/个人所在地'
+          navigation.categories[0].sections[0].items[2].href='/tweet/' + id + '/' + item.idprivacy
           navigation.categories[0].sections[1].items[2].name=item.privacy_value
-          navigation.categories[0].sections[1].items[2].href='/tweet/' + id + '/个人所在地'
+          navigation.categories[0].sections[1].items[2].href='/tweet/' + id + '/' + item.idprivacy
         }
         break;
         case '行业':{
-          navigation.categories[0].sections[0].items[4].href='/tweet/' + id + '/行业'
+          navigation.categories[0].sections[0].items[4].href='/tweet/' + id + '/' + item.idprivacy
           navigation.categories[0].sections[1].items[4].name=item.privacy_value
-          navigation.categories[0].sections[1].items[4].href='/tweet/' + id + '/行业'
-        }
-        break;
-        case '性别':{
-          navigation.categories[0].sections[0].items[3].href='/tweet/' + id + '/性别'
-          navigation.categories[0].sections[1].items[3].name=item.privacy_value
-          navigation.categories[0].sections[1].items[3].href='/tweet/' + id + '/性别'
+          navigation.categories[0].sections[1].items[4].href='/tweet/' + id + '/' + item.idprivacy
         }
         break;
         case '家':{
-          navigation.categories[0].sections[0].items[5].href='/tweet/' + id + '/家'
+          navigation.categories[0].sections[0].items[5].href='/tweet/' + id + '/' + item.idprivacy
           navigation.categories[0].sections[1].items[5].name=item.privacy_value
-          navigation.categories[0].sections[1].items[5].href='/tweet/' + id + '/家'
+          navigation.categories[0].sections[1].items[5].href='/tweet/' + id + '/' + item.idprivacy
         }
         break;
         case '电话':{
-          navigation.categories[1].sections[0].items[0].href='/tweet/' + id + '/电话'
+          navigation.categories[1].sections[0].items[0].href='/tweet/' + id + '/' + item.idprivacy
           navigation.categories[1].sections[1].items[0].name=item.privacy_value
-          navigation.categories[1].sections[1].items[0].href='/tweet/' + id + '/电话'
+          navigation.categories[1].sections[1].items[0].href='/tweet/' + id + '/' + item.idprivacy
         }
         break;
         case '邮箱':{
-          navigation.categories[1].sections[0].items[1].href='/tweet/' + id + '/邮箱'
+          navigation.categories[1].sections[0].items[1].href='/tweet/' + id + '/' + item.idprivacy
           navigation.categories[1].sections[1].items[1].name=item.privacy_value
-          navigation.categories[1].sections[1].items[1].href='/tweet/' + id + '/邮箱'
+          navigation.categories[1].sections[1].items[1].href='/tweet/' + id + '/' + item.idprivacy
         }
         break;
       }
@@ -189,7 +183,7 @@ export default function Home_content(props) {
   
     };
 
-    sendDataToPHPApp('http://localhost:9000/select.php', idString, updateNavigation);
+    sendDataToPHPApp('http://localhost:9000/select(1).php', idString, updateNavigation);
   }, []); // 空数组作为依赖项，表示只在组件挂载时执行一次
 
   const [open, setOpen] = useState(true)

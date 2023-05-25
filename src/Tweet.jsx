@@ -1,4 +1,4 @@
-import React, { useRef,useState,useEffect } from 'react';
+import React, { useRef,useState,useEffect,useLayoutEffect } from 'react';
 import './index.css';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
@@ -8,40 +8,39 @@ const { Header, Content, Footer } = Layout;
 
 
 const Tweet = () => {
-    const { id } = useParams();
-    const tweetContentRef = useRef(null);
-    const [contentHeight, setContentHeight] = useState(0);
+    const { id,privacy } = useParams();
+    const [childHeight, setChildHeight] = useState(0);
+    const childRef = useRef(null);
   
-    useEffect(() => {
-      if (tweetContentRef.current) {
-        const height = tweetContentRef.current.offsetHeight;
-        setContentHeight(height);
-      }
-    }, []);
+    const handleChildHeight = (height) => {
+      setChildHeight(height);
+    };
 
-
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-  return (
-    <Layout className="layout" style={{ height: contentHeight+100 }}>
-      <Header style={{ display: 'flex'}} className="css-1m6c83y">
-      <div className="rg2km" style={{flexFlow: "nowrap", height: "64px"}}>
+    return (
+      <Layout className="layout" style={{ height: childHeight + 100 }}>
+        <Header style={{ display: 'flex' }} className="css-1m6c83y">
+        <div className="rg2km" style={{flexFlow: "nowrap", height: "64px"}}>
           <div className='md-6'>
             <h1>
               <a className='if06k' href='/index'>
-                <span className="css-zsb1p1">Twspy</span>
+                <span >Twspy</span>
               </a>
             </h1>
           </div>
         </div>
-      </Header>
-      <Content style={{ padding: '0 50px' ,height: contentHeight}}>
-        <Tweet_content id={id} ref={tweetContentRef}></Tweet_content>
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>zhangheng shi sb</Footer>
-    </Layout>
-  );
-};
+        </Header>
+        <Content style={{ padding: '0 50px', height:  childHeight }}>
+          <Tweet_content
+            id={id}
+            ref={childRef}
+            privacy={privacy}
+            onHeightChange={handleChildHeight} // 传递回调函数给子组件
+          />
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>zhangheng shi sb</Footer>
+      </Layout>
+    );
+  };
+
 
 export default Tweet;

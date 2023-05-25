@@ -21,10 +21,9 @@ function App() {
             </Route>
             <Route path="/sign" element={<Sign />}></Route>
             <Route path="/tweet" element={<Tweet />}>
-              <Route path=":item" element={<Tweet />}>
-              <Route path=":id" element={<Tweet />}></Route>
+              <Route path=":id" element={<Tweet />}>
+                <Route path=":privacy" element={<Tweet />}></Route>
               </Route>
-              <Route path=":id" element={<Tweet />}></Route>
             </Route>
             
 
