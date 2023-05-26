@@ -31,24 +31,14 @@ const navigation = {
           id: 'key',
           name: 'Key',
           items: [
-            { name: '用户名', href: '#' },
-            { name: '姓名', href: '#' },
-            { name: '个人所在地', href: '#' },
-            { name: '性别', href: '#' },
-            { name: '行业', href: '#' },
-            { name: '家', href: '#' },
+            {name:'用户名',href:'#'}
           ],
         },
         {
           id: 'value',
           name: 'Value',
           items: [
-            { name: 'Not Found', href: '#' },
-            { name: 'Not Found', href: '#' },
-            { name: 'Not Found', href: '#' },
-            { name: 'Not Found', href: '#' },
-            { name: 'Not Found', href: '#' },
-            { name: 'Not Found', href: '#' },
+            {name:'Not Found',href:'#'}
           ],
         },
       ],
@@ -77,16 +67,12 @@ const navigation = {
           id: 'key',
           name: 'Key',
           items: [
-            { name: '电话', href: '#' },
-            { name: '邮箱', href: '#' },
           ],
         },
         {
           id: 'value',
           name: 'Value',
           items: [
-            { name: 'Not Found', href: '#' },
-            { name: 'Not Found', href: '#' },
           ],
         },
       ],
@@ -167,40 +153,41 @@ export default function Home_content(props) {
       // 处理每个元素
       switch(item.privacy_class){
         case '姓名':{
-          navigation.categories[0].sections[0].items[1].href='/tweet/' + id + '/' + item.idprivacy
-          navigation.categories[0].sections[1].items[1].name=item.privacy_value
-          navigation.categories[0].sections[1].items[1].href='/tweet/' + id + '/' + item.idprivacy
+          navigation.categories[0].sections[0].items.push({name: '姓名',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[0].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
         }
         break;
         case '个人所在地':{
-          navigation.categories[0].sections[0].items[2].href='/tweet/' + id + '/' + item.idprivacy
-          navigation.categories[0].sections[1].items[2].name=item.privacy_value
-          navigation.categories[0].sections[1].items[2].href='/tweet/' + id + '/' + item.idprivacy
+          navigation.categories[0].sections[0].items.push({name: '个人所在地',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[0].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
         }
         break;
         case '行业':{
-          navigation.categories[0].sections[0].items[4].href='/tweet/' + id + '/' + item.idprivacy
-          navigation.categories[0].sections[1].items[4].name=item.privacy_value
-          navigation.categories[0].sections[1].items[4].href='/tweet/' + id + '/' + item.idprivacy
+          navigation.categories[0].sections[0].items.push({name: '行业',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[0].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
         }
         break;
+        case '从业公司':{
+          navigation.categories[0].sections[0].items.push({name: '从业公司',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[0].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
+        }
+        break;
+
         case '家':{
-          navigation.categories[0].sections[0].items[5].href='/tweet/' + id + '/' + item.idprivacy
-          navigation.categories[0].sections[1].items[5].name=item.privacy_value
-          navigation.categories[0].sections[1].items[5].href='/tweet/' + id + '/' + item.idprivacy
+          navigation.categories[0].sections[0].items.push({name: '家',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[0].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
         }
         break;
         case '电话':{
-          navigation.categories[1].sections[0].items[0].href='/tweet/' + id + '/' + item.idprivacy
-          navigation.categories[1].sections[1].items[0].name=item.privacy_value
-          navigation.categories[1].sections[1].items[0].href='/tweet/' + id + '/' + item.idprivacy
+          navigation.categories[1].sections[0].items.push({name: '电话',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[1].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
         }
         break;
         case '邮箱':{
-          navigation.categories[1].sections[0].items[1].href='/tweet/' + id + '/' + item.idprivacy
-          navigation.categories[1].sections[1].items[1].name=item.privacy_value
-          navigation.categories[1].sections[1].items[1].href='/tweet/' + id + '/' + item.idprivacy
+          navigation.categories[1].sections[0].items.push({name: '邮箱',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[1].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
         }
+        
         break;
       }
   
@@ -220,8 +207,8 @@ export default function Home_content(props) {
       navigation.categories[1].featured[0].text.push(message[0].verified_reason)
       navigation.categories[1].featured[0].text.push(message[0].description)
     }
-    sendDataToPHPApp('/select.php', idString, updateNavigation);
-    sendDataToPHPApp2('/select.php',idString, updateicon);
+    sendDataToPHPApp('http://localhost:9000/select(1).php', idString, updateNavigation);
+    sendDataToPHPApp2('http://localhost:9000/select(1).php',idString, updateicon);
   }, []); // 空数组作为依赖项，表示只在组件挂载时执行一次
 
   const [open, setOpen] = useState(true)
@@ -288,12 +275,12 @@ export default function Home_content(props) {
                       <Tab.Panel key={category.name} className="space-y-10 px-4 pb-8 pt-10">
                         <div className="grid grid-cols-2 gap-x-4">
                           {category.featured.map((item) => (
-                            <div key={item.name} className="group relative text-sm">
-                              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
+                            <div key={item.name} className="group relative text-sm text-center">
+                              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75 flex items-center justify-center">
+                                <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center text-center" />
                               </div>
-                              <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                <span className="absolute inset-0 z-10" aria-hidden="true" />
+                              <a href={item.href} className="mt-6 block font-medium text-gray-900 text-center">
+                                <span className="absolute inset-0 z-10 text-center" aria-hidden="true" />
                                 {item.name}
                               </a>
                               {/* <p aria-hidden="true" className="mt-1">
@@ -421,10 +408,10 @@ export default function Home_content(props) {
                               <div className="relative bg-white">
                                 <div className="mx-auto max-w-7xl px-8">
                                   <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                                    <div className="row-start-1 grid grid-cols-2 gap-x-8">
+                                    <div className="row-start-1 grid grid-cols-1 gap-x-8">
                                       {/* {category.featured.map((item) => ( */}
-                                        <div key={category.featured[0].name} className="group relative text-base sm:text-sm">
-                                        <div className="relative mt-8 flex items-center gap-x-4"> 
+                                        <div key={category.featured[0].name} className="group relative text-base sm:text-sm text-center">
+                                        <div className="relative mt-8 flex items-center gap-x-4 items-center justify-center"> 
                                           <div className="flex items-center">
                                             <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                               <img
@@ -452,23 +439,7 @@ export default function Home_content(props) {
                                           {/* <p aria-hidden="true" className="mt-1">
                                             Shop now
                                           </p> */}
-                                        </div>
-                                        <div key={category.featured[1].name} className="group relative text-base sm:text-sm">
-                                          <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                            <img
-                                              src={category.featured[1].imageSrc}
-                                              alt={category.featured[1].imageAlt}
-                                              className="object-cover object-center"
-                                            />
-                                          </div>
-                                          <a href={category.featured[1].href} className="mt-6 block font-medium text-gray-900">
-                                            <span className="absolute inset-0 z-10" aria-hidden="true" />
-                                            {category.featured[1].name}
-                                          </a>
-                                          {/* <p aria-hidden="true" className="mt-1">
-                                            Shop now
-                                          </p> */}
-                                        </div>                                      
+                                        </div>                                    
                                     </div>
                                     <div className=" col-start-2 grid grid-cols-2 gap-x-8 gap-y-10 text-sm">
                                       {category.sections.map((section) => (

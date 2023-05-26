@@ -10,7 +10,7 @@ const Tweet_content = forwardRef(({ id, privacy, onHeightChange }, ref) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/select.php', {
+        const response = await fetch('http://localhost:9000/select(1).php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const Tweet_content = forwardRef(({ id, privacy, onHeightChange }, ref) => {
               role: 'Co-Founder / CTO',
               href: '#',
               imageUrl:
-                'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+                '/image/avatar/'+id+'.jpg',
             },
           }));
           setPosts(newPosts);
