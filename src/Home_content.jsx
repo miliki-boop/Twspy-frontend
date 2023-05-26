@@ -13,9 +13,9 @@ const navigation = {
       name: 'Identity',
       featured: [
         {
-          name: '余霜YSCandice',
+          name: 'Not found',
           href: '#',
-          imageSrc: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+          imageSrc: 'user.png',
           imageAlt: 'Show icon',
           text: []
         },
@@ -48,9 +48,9 @@ const navigation = {
       name: 'Sociality',
       featured: [
         {
-          name: '余霜YSCandice',
+          name: 'Not found',
           href: '#',
-          imageSrc: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+          imageSrc: 'user.png',
           imageAlt: 'People with connections',
           text: []
         },
@@ -187,8 +187,11 @@ export default function Home_content(props) {
           navigation.categories[1].sections[0].items.push({name: '邮箱',href:'/tweet/' + id + '/' + item.idprivacy})
           navigation.categories[1].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
         }
-        
         break;
+        case '人脸':{
+          navigation.categories[0].sections[0].items.push({name: '人脸',href:'/tweet/' + id + '/' + item.idprivacy})
+          navigation.categories[0].sections[1].items.push({name: item.privacy_value,href:'/tweet/' + id + '/' + item.idprivacy})
+        }
       }
   
       });

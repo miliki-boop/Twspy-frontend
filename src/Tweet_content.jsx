@@ -21,6 +21,7 @@ const Tweet_content = forwardRef(({ id, privacy, onHeightChange }, ref) => {
         if (data.success) {
           const newPosts = data.message.map((msg, index) => ({
             id: index + 1,
+            imageSrc:msg.pics,
             title: msg.topics,
             description: msg.text,
             category: { title: msg.source, href: '#' },
