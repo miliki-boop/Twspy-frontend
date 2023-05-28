@@ -25,7 +25,7 @@ const Sign: React.FC = () => {
       <Content style={{ flex: 1, padding: '0 50px' }}>
         <Sign_content></Sign_content>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>zhangheng shi shabi</Footer>
+      <Footer style={{ textAlign: 'center' }}>Made with ❤ by Twspy</Footer>
     </Layout>
   );
 };

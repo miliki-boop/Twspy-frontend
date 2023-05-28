@@ -99,7 +99,7 @@ export default function Home_content(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({uid: id,action:'getPrivacy'}),
+      body: JSON.stringify({data: id,action:'getPrivacy'}),
     })
       .then(response => response.json())
       .then(data => {
@@ -107,7 +107,7 @@ export default function Home_content(props) {
         console.log(data);
         if(data.success)
         {
-          updateNavigation(data.message,id);
+          updateNavigation(data.message,data.message[0].userid);
           setButtonFlag(true);
         }
           
@@ -124,7 +124,7 @@ export default function Home_content(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({uid: id,action:'getUser'}),
+      body: JSON.stringify({data: id,action:'getUser'}),
     })
       .then(response => response.json())
       .then(data => {
@@ -132,7 +132,7 @@ export default function Home_content(props) {
         console.log(data);
         if(data.success)
         {
-          updateNavigation(data.message,id);
+          updateNavigation(data.message,data.message[0].id);
         }
           
       })
@@ -206,12 +206,31 @@ export default function Home_content(props) {
 
 
       navigation.categories[0].featured[0].text.push(message[0].verified_reason)
-      navigation.categories[0].featured[0].text.push(message[0].description)
+      if(message[0].description)
+        navigation.categories[0].featured[0].text.push(message[0].description)
       navigation.categories[1].featured[0].text.push(message[0].verified_reason)
-      navigation.categories[1].featured[0].text.push(message[0].description)
+      if(message[0].description)
+        navigation.categories[1].featured[0].text.push(message[0].description)
+      if(message[0].birthday)
+        navigation.categories[0].featured[0].text.push(message[0].birthday)
+      if(message[0].sunshine)
+        navigation.categories[0].featured[0].text.push(message[0].sunshine)
+      //if(message[0].follow_count)
+        navigation.categories[0].featured[0].text.push('关注：'+message[0].follow_count)
+      //if(message[0].followers_count)
+        navigation.categories[0].featured[0].text.push('粉丝：'+message[0].followers_count)  
+      
+      if(message[0].birthday)
+        navigation.categories[1].featured[0].text.push(message[0].birthday)
+      if(message[0].sunshine)
+        navigation.categories[1].featured[0].text.push(message[0].sunshine)
+      //if(message[0].follow_count)
+        navigation.categories[1].featured[0].text.push('关注：'+message[0].follow_count)
+      //if(message[0].followers_count)
+        navigation.categories[1].featured[0].text.push('粉丝：'+message[0].followers_count)  
     }
-    sendDataToPHPApp('http://localhost:9000/select(1).php', idString, updateNavigation);
-    sendDataToPHPApp2('http://localhost:9000/select(1).php',idString, updateicon);
+    sendDataToPHPApp('/select.php', idString, updateNavigation);
+    sendDataToPHPApp2('/select.php',idString, updateicon);
   }, []); // 空数组作为依赖项，表示只在组件挂载时执行一次
 
   const [open, setOpen] = useState(true)

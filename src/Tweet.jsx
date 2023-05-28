@@ -37,7 +37,7 @@ const Tweet = () => {
             onHeightChange={handleChildHeight} // 传递回调函数给子组件
           />
         </Content>
-        <Footer style={{ textAlign: 'center' }}>zhangheng shi sb</Footer>
+        <Footer style={{ textAlign: 'center' }}>Made with ❤ by Twspy</Footer>
       </Layout>
     );
   };

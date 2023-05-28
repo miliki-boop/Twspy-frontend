@@ -10,12 +10,12 @@ const Tweet_content = forwardRef(({ id, privacy, onHeightChange }, ref) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:9000/select(1).php', {
+        const response = await fetch('/select.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ uid: privacy, action: 'getWeibo' }),
+          body: JSON.stringify({ data: privacy, action: 'getWeibo' }),
         });
         const data = await response.json();
         if (data.success) {
